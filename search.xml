@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Attack Team Anti-Tracing Guidelines</title>
-    <url>/articles/Attack-Team-Anti-Tracing-Guidelines-6466ffc8a188/</url>
+    <url>/articles/Attack-Team-Anti-Tracing-Guidelines/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个安全人员，反溯源是我们最基本的能力要求，同时也是一个黑客的精神向往。今年规则加入了一条“被防守方溯源到攻击队员、攻击资源” 扣3000分。更需要更加注重个人渗透习惯，故制定该准则给大家做个牵引。态度决定高度，细节成就大业。</p>
 <h1 id="行为准则"><a href="#行为准则" class="headerlink" title="行为准则"></a>行为准则</h1><p><strong>一切的大前提：使用虚拟机进行渗透测试，使用win10英文版+英文版浏览器+打上全补丁</strong></p>
 <h3 id="网络选择"><a href="#网络选择" class="headerlink" title="网络选择"></a>网络选择</h3><p>1.不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透。</p>
@@ -47,7 +47,7 @@
   </entry>
   <entry>
     <title>How Ridiculous TOTOLINK X6000R Is</title>
-    <url>/articles/How-Ridiculous-TOTOLINK-X6000R-Is-18163c49fabc/</url>
+    <url>/articles/How-Ridiculous-TOTOLINK-X6000R-Is/</url>
     <content><![CDATA[<!--more-->
 
 <p>​	When I surfing <code>https://gobies.org/updates</code> to see the newly updated vulnerabilities, I accidentally see a CVE of <code>D-LINK</code>, and goby give a way to search D-LINK products through <code>FOFA</code>.</p>
