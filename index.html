@@ -187,7 +187,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2024-10-29 17:53:07 / Modified: 18:05:30" itemprop="dateCreated datePublished" datetime="2024-10-29T17:53:07+08:00">2024-10-29</time>
+      <time title="Created: 2024-10-29 17:53:07 / Modified: 18:57:59" itemprop="dateCreated datePublished" datetime="2024-10-29T17:53:07+08:00">2024-10-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,30 +224,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>​	When I surfing <code>https://gobies.org/updates</code> to see the newly updated vulnerabilities, I accidentally see a CVE of <code>D-LINK</code>, and goby give a way to search D-LINK products through <code>FOFA</code>.</p>
-<p>​	Inspired by this, I immediately search <code>TOTOLINK</code>, which I am researching on but struggling to simulation. Luckily, I get one. :)</p>
-<p>And this one is X6000R.</p>
-<p>​	When I searched vulnerabilities of <code>X60000R</code> on CVE.org, I was astonished:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029175808268.png" alt="image-20241029175808268"></p>
-<p>​	Uhhh? How can it be? What’s more ridiculous is that almost all of them are command execution vulnerabilities…</p>
-<p>​	I review one of them … Emmm, what can i say :?</p>
-<p>​	Vulnerability is in a shared library function…</p>
-<p>​	<code>CsteSystem</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180018557.png" alt="image-20241029180018557"></p>
-<p>​	</p>
-<p>​	And most of functions like <code>Uci_xxx</code> called it…</p>
-<p>​	Taking <code>Uci_Set_Str</code> for an example:</p>
-<p>​	In binary file <code>usr/sbin/shttpd</code> called <code>Uci_Set_Str</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180111169.png" alt="image-20241029180111169"></p>
-<p>And <code>Uci_Set_Str</code> is defined in <code>usr/lib/libcscommon.so</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180150041.png" alt="image-20241029180150041"></p>
-<p>…</p>
-<p>​	According to this idea, as long as there is a controllable input point of <code>Uci_Set_Str</code>, a system will be generated. . .</p>
-<p>​	Oh my god. . .</p>
-<p>​	I found that wherever there is a <code>Uci_xxx</code> function, there is basically a CsteSystem. . .</p>
-<p>​	So I also took the opportunity to successfully find a bunch of vulnerabilities that have not yet been discovered and reported them to CVE. I hope I can get a number~</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180406740.png" alt="image-20241029180406740"></p>
-
+          Interesting TOTOLINK X6000R🤣
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/articles/How-Ridiculous-TOTOLINK-X6000R-Is-18163c49fabc/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
