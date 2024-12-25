@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2024-12-03-Kasaki-Nozomi&#39;s-Birthday</title>
+    <url>/2024-12-03-Kasaki-Nozomi-s-Birthday/</url>
+    <content><![CDATA[<p>伞哥哥生日快乐！！！🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂</p>
+<p>又是一年。</p>
+<p>Nozomi对我而言，意味着太多太多……</p>
+<p>A Year，</p>
+<p>对待学校whk态度的转变，</p>
+<p>对待CTF态度的转变，</p>
+<p>自己感兴趣方向的探索，</p>
+<p>基本功的提升</p>
+<p>……</p>
+<p>希望明年的12.3，能够让所有的effort，都paid off~</p>
+<p>Nozomi bless me~</p>
+]]></content>
+      <categories>
+        <category>Most-Important</category>
+      </categories>
+      <tags>
+        <tag>LIFE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How Ridiculous TOTOLINK X6000R Is</title>
+    <url>/How-Ridiculous-TOTOLINK-X6000R-Is/</url>
+    <content><![CDATA[<!--more-->
+
+<p>​	When I surfing <code>https://gobies.org/updates</code> to see the newly updated vulnerabilities, I accidentally see a CVE of <code>D-LINK</code>, and goby give a way to search D-LINK products through <code>FOFA</code>.</p>
+<p>​	Inspired by this, I immediately search <code>TOTOLINK</code>, which I am researching on but struggling to simulation. Luckily, I get one. :)</p>
+<p>And this one is X6000R.</p>
+<p>​	When I searched vulnerabilities of <code>X60000R</code> on CVE.org, I was astonished:</p>
+<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029175808268.png" alt="image-20241029175808268"></p>
+<p>​	Uhhh? How can it be? What’s more ridiculous is that almost all of them are command execution vulnerabilities…</p>
+<p>​	I review one of them … Emmm, what can i say :?</p>
+<p>​	Vulnerability is in a shared library function…</p>
+<p>​	<code>CsteSystem</code>:</p>
+<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180018557.png" alt="image-20241029180018557"></p>
+<p>​	</p>
+<p>​	And most of functions like <code>Uci_xxx</code> called it…</p>
+<p>​	Taking <code>Uci_Set_Str</code> for an example:</p>
+<p>​	In binary file <code>usr/sbin/shttpd</code> called <code>Uci_Set_Str</code>:</p>
+<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180111169.png" alt="image-20241029180111169"></p>
+<p>And <code>Uci_Set_Str</code> is defined in <code>usr/lib/libcscommon.so</code>:</p>
+<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180150041.png" alt="image-20241029180150041"></p>
+<p>…</p>
+<p>​	According to this idea, as long as there is a controllable input point of <code>Uci_Set_Str</code>, a system will be generated. . .</p>
+<p>​	Oh my god. . .</p>
+<p>​	I found that wherever there is a <code>Uci_xxx</code> function, there is basically a CsteSystem. . .</p>
+<p>​	So I also took the opportunity to successfully find a bunch of vulnerabilities that have not yet been discovered and reported them to CVE. I hope I can get a number~</p>
+<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180406740.png" alt="image-20241029180406740"></p>
+]]></content>
+      <categories>
+        <category>IoT</category>
+      </categories>
+      <tags>
+        <tag>IoT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Attack Team Anti-Tracing Guidelines</title>
-    <url>/articles/Attack-Team-Anti-Tracing-Guidelines/</url>
+    <url>/Attack-Team-Anti-Tracing-Guidelines/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个安全人员，反溯源是我们最基本的能力要求，同时也是一个黑客的精神向往。今年规则加入了一条“被防守方溯源到攻击队员、攻击资源” 扣3000分。更需要更加注重个人渗透习惯，故制定该准则给大家做个牵引。态度决定高度，细节成就大业。</p>
 <h1 id="行为准则"><a href="#行为准则" class="headerlink" title="行为准则"></a>行为准则</h1><p><strong>一切的大前提：使用虚拟机进行渗透测试，使用win10英文版+英文版浏览器+打上全补丁</strong></p>
 <h3 id="网络选择"><a href="#网络选择" class="headerlink" title="网络选择"></a>网络选择</h3><p>1.不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透。</p>
@@ -46,44 +104,8 @@
       </tags>
   </entry>
   <entry>
-    <title>How Ridiculous TOTOLINK X6000R Is</title>
-    <url>/articles/How-Ridiculous-TOTOLINK-X6000R-Is/</url>
-    <content><![CDATA[<!--more-->
-
-<p>​	When I surfing <code>https://gobies.org/updates</code> to see the newly updated vulnerabilities, I accidentally see a CVE of <code>D-LINK</code>, and goby give a way to search D-LINK products through <code>FOFA</code>.</p>
-<p>​	Inspired by this, I immediately search <code>TOTOLINK</code>, which I am researching on but struggling to simulation. Luckily, I get one. :)</p>
-<p>And this one is X6000R.</p>
-<p>​	When I searched vulnerabilities of <code>X60000R</code> on CVE.org, I was astonished:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029175808268.png" alt="image-20241029175808268"></p>
-<p>​	Uhhh? How can it be? What’s more ridiculous is that almost all of them are command execution vulnerabilities…</p>
-<p>​	I review one of them … Emmm, what can i say :?</p>
-<p>​	Vulnerability is in a shared library function…</p>
-<p>​	<code>CsteSystem</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180018557.png" alt="image-20241029180018557"></p>
-<p>​	</p>
-<p>​	And most of functions like <code>Uci_xxx</code> called it…</p>
-<p>​	Taking <code>Uci_Set_Str</code> for an example:</p>
-<p>​	In binary file <code>usr/sbin/shttpd</code> called <code>Uci_Set_Str</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180111169.png" alt="image-20241029180111169"></p>
-<p>And <code>Uci_Set_Str</code> is defined in <code>usr/lib/libcscommon.so</code>:</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180150041.png" alt="image-20241029180150041"></p>
-<p>…</p>
-<p>​	According to this idea, as long as there is a controllable input point of <code>Uci_Set_Str</code>, a system will be generated. . .</p>
-<p>​	Oh my god. . .</p>
-<p>​	I found that wherever there is a <code>Uci_xxx</code> function, there is basically a CsteSystem. . .</p>
-<p>​	So I also took the opportunity to successfully find a bunch of vulnerabilities that have not yet been discovered and reported them to CVE. I hope I can get a number~</p>
-<p><img src="/./How-Ridiculous-TOTOLINK-X6000R-Is/images/image-20241029180406740.png" alt="image-20241029180406740"></p>
-]]></content>
-      <categories>
-        <category>IoT</category>
-      </categories>
-      <tags>
-        <tag>IoT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Nothing To Say About sb college</title>
-    <url>/articles/Nothing-To-Say-About-sb-college/</url>
+    <url>/Nothing-To-Say-About-sb-college/</url>
     <content><![CDATA[<p>What can i say?</p>
 <p>md，网络空间安全学院。。。何为安全啊？</p>
 <p>填奖填nm英语竞赛，数学建模。。。</p>
@@ -93,27 +115,5 @@
 <p>Eclipse first, the rest nowhere.</p>
 <p>FORZA!</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>2024-12-03-Kasaki-Nozomi&#39;s-Birthday</title>
-    <url>/articles/2024-12-03-Kasaki-Nozomi-s-Birthday/</url>
-    <content><![CDATA[<p>伞哥哥生日快乐！！！🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂</p>
-<p>又是一年。</p>
-<p>Nozomi对我而言，意味着太多太多……</p>
-<p>A Year，</p>
-<p>对待学校whk态度的转变，</p>
-<p>对待CTF态度的转变，</p>
-<p>自己感兴趣方向的探索，</p>
-<p>基本功的提升</p>
-<p>……</p>
-<p>希望明年的12.3，能够让所有的effort，都paid off~</p>
-<p>Nozomi bless me~</p>
-]]></content>
-      <categories>
-        <category>Most-Important</category>
-      </categories>
-      <tags>
-        <tag>LIFE</tag>
-      </tags>
   </entry>
 </search>
