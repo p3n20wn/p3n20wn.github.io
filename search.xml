@@ -122,4 +122,92 @@
 <p>FORZA!</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Tomcat-PUT-upload-RCE-Analysis(CVE-2017-12615&amp;&amp;CVE-2024-50379)</title>
+    <url>/Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/</url>
+    <content><![CDATA[<!--more-->
+
+<p>跟着这篇:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://blog.csdn.net/qq_63217130/article/details/144588392</span><br></pre></td></tr></table></figure>
+
+<p>比较细的过了一遍，但是由于tomcat版本问题(也许?)没有成功拿到shell，但也记录下中间的一些关键漏洞代码点。</p>
+<h2 id="CVE-2017-12615"><a href="#CVE-2017-12615" class="headerlink" title="CVE-2017-12615"></a>CVE-2017-12615</h2><p>整体还是采用idea搭tomcat的结构：<img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225172925778.png" alt="image-20241225172925778"></p>
+<p>我这里是 tomcat-9.0.95</p>
+<p>以前复现2017那个CVE的时候，没有去关注原因。</p>
+<p>这次看了下，在这里：</p>
+<p>tomcat的  conf&#x2F;web.xml里面的servlet映射配置：</p>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225173040830.png" alt="image-20241225173040830"></p>
+<p>如果我们的路径不能被</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.jsp</span><br><span class="line">*.jspx</span><br></pre></td></tr></table></figure>
+
+<p>匹配，就会用default servlet去处理，看tomcat源码，看到其中跟PUT相关的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/apache/tomcat/blob/main/java/org/apache/catalina/servlets/DefaultServlet.java#L582</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225173240631.png" alt="image-20241225173240631"></p>
+<p>可以看到，这里需要<code>isReadOnly</code>为False，而这个isReadOnly需要在这里配置：</p>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225173558354.png" alt="image-20241225173558354"></p>
+<p>这样配置后，我们</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PUT /CVE_2024_50379_war_exploded/test4.Jsp HTTP/1.1</span><br><span class="line">Host: 192.168.37.129:8080</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">DNT: 1</span><br><span class="line">Sec-GPC: 1</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cookie: JSESSIONID=EAADA5DD7720E932566B3FD263496B9D</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Priority: u=1</span><br><span class="line">Content-Length: 161</span><br><span class="line"></span><br><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;$Title$&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  $END$</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>就能成功上传test4.Jsp文件到web目录下了，</p>
+<p>注意这里不能用jsp，jspx后缀，可以用大小写这些特性，(哦，突然想到为什么复现不成功了，。。。)大小写用的是Windows对文件后缀名不敏感的特性。。。而我的idea是装在Ubuntu里的。。。难绷。。。</p>
+<p>这里可以看到确实上传成功了：</p>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225173844912.png" alt="image-20241225173844912"></p>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225173853953.png" alt="image-20241225173853953"></p>
+<p>理论上，在Windows下，就可以访问</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/test4.Jsp</span><br></pre></td></tr></table></figure>
+
+<p>来执行jsp代码了。</p>
+<h2 id="CVE-2024-50379"><a href="#CVE-2024-50379" class="headerlink" title="CVE-2024-50379"></a>CVE-2024-50379</h2><p>这个在前几天chantin的公众号推了，也是一个比较大的洞，利用<strong>多线程并发PUT</strong>传这个改了后缀名的jsp，利用Windows等服务器对大小写不敏感，最终导致RCE。</p>
+<p>具体原因应该得细看下源码，是不是有什么临时文件之类的缓存操作？</p>
+<p>哦，其实具体看这个修复的commit大概就懂了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/apache/tomcat/commit/43b507ebac9d268b1ea3d908e296cc6e46795c00#diff-76c0332086740f8f2f26d8771efb9aa05329402cb83d0ed2f38cf10f55ac5b57R305</span><br></pre></td></tr></table></figure>
+
+<p>修复是对同一文件的PUT这些操作上锁，防止并发绕过。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fix inconsistent resource metadata with current GET and PUT/DELETE</span><br><span class="line">Concurrent reads and writes (e.g. HTTP GET and PUT / DELETE) for the</span><br><span class="line">same path cause corruption of the FileResource where some of the fields</span><br><span class="line">are set as if the file exists and some as set as if it does not.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225175454396.png" alt="image-20241225175454396"></p>
+<p>后面也有类似的。</p>
+<p>处理了 READ，WRITE，DELETE三个操作的lock问题。</p>
+<p>看起来是修了罢，但说不准又被bypass了）</p>
+<hr>
+<p>但话说回来，还是没看到这个inconsistency在哪儿啊？？？</p>
+<p>终于找到一篇：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://www.yxfzedu.com/article/12035</span><br></pre></td></tr></table></figure>
+
+
+
+<p>果然，还是Windows的问题：</p>
+<blockquote>
+<p>这是JDK 1.8 java.io.File#getCanonicalPath 方法在Windows上的表现。Tomcat的这个漏洞也正是利用了这个特点。</p>
+</blockquote>
+<p>这里找了个9的版本的源码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/apache/tomcat/blob/9.0.x/java/org/apache/catalina/webresources/AbstractFileResourceSet.java#L92</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个getCanonicalPath方法，会将我们PUT上传的 poc.JSP得到的canPath转为小写的 poc.jsp</p>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225180743520.png" alt="image-20241225180743520"></p>
+<blockquote>
+<p>然后回到上层getResource方法中，第116行判断文件是否存在</p>
+</blockquote>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225180911247.png" alt="image-20241225180911247"></p>
+<p>这个小写是来自之前的canPath的小写，而Windows上，后缀大小写不敏感，所以这个f.exists会过掉，进入后续的操作。</p>
+<p>但为什么说要并发竞争PUT呢？</p>
+<blockquote>
+<p>为什么再过几秒之后就无法触发了呢？因为过了这个时间差之后，file.getCanonicalPath 获取的值就变为了 *.JSP 大写结尾的路径，但调用 file.getAbsolutePath() 方法依然会返回 *.jsp 小写结尾的路径，于是 file 方法第138行的equals方法会返回false，再取反为true，于是执行到145行返回一个null：</p>
+</blockquote>
+<p><img src="/./Tomcat-PUT-upload-RCE-Analysis-CVE-2017-12615-CVE-2024-50379/images/image-20241225181103080.png" alt="image-20241225181103080"></p>
+<p>我只能说，奇怪的Windows实现。。。file.getCanonicalPath同一个方法，几秒钟的差异，会导致返回相反的结果。。。</p>
+<hr>
+<p>写在最后。</p>
+<p>这算是第一次真的跟着复现了一遍Java的CVE罢。。</p>
+]]></content>
+      <categories>
+        <category>Java-Sec</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
