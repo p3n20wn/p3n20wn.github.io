@@ -3,7 +3,9 @@
   <entry>
     <title>2024-12-03-Kasaki-Nozomi&#39;s-Birthday</title>
     <url>/2024-12-03-Kasaki-Nozomi-s-Birthday/</url>
-    <content><![CDATA[<p>伞哥哥生日快乐！！！🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂</p>
+    <content><![CDATA[<span id="more"></span>
+
+<p>伞哥哥生日快乐！！！🎂🎂🎂🎂🎂🎂🎂🎂🎂🎂</p>
 <p>又是一年。</p>
 <p>Nozomi对我而言，意味着太多太多……</p>
 <p>A Year，</p>
@@ -61,7 +63,9 @@
   <entry>
     <title>Attack Team Anti-Tracing Guidelines</title>
     <url>/Attack-Team-Anti-Tracing-Guidelines/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个安全人员，反溯源是我们最基本的能力要求，同时也是一个黑客的精神向往。今年规则加入了一条“被防守方溯源到攻击队员、攻击资源” 扣3000分。更需要更加注重个人渗透习惯，故制定该准则给大家做个牵引。态度决定高度，细节成就大业。</p>
+    <content><![CDATA[<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个安全人员，反溯源是我们最基本的能力要求，同时也是一个黑客的精神向往。今年规则加入了一条“被防守方溯源到攻击队员、攻击资源” 扣3000分。更需要更加注重个人渗透习惯，故制定该准则给大家做个牵引。态度决定高度，细节成就大业。</p>
 <h1 id="行为准则"><a href="#行为准则" class="headerlink" title="行为准则"></a>行为准则</h1><p><strong>一切的大前提：使用虚拟机进行渗透测试，使用win10英文版+英文版浏览器+打上全补丁</strong></p>
 <h3 id="网络选择"><a href="#网络选择" class="headerlink" title="网络选择"></a>网络选择</h3><p>1.不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透、不允许使用公司出口网络进行渗透。</p>
 <p>2.除监管单位要求，平时渗透不允许使用与公司相关网络进行渗透测试。</p>
@@ -106,7 +110,9 @@
   <entry>
     <title>Nothing To Say About sb college</title>
     <url>/Nothing-To-Say-About-sb-college/</url>
-    <content><![CDATA[<p>What can i say?</p>
+    <content><![CDATA[<span id="more"></span>
+
+<p>What can i say?</p>
 <p>md，网络空间安全学院。。。何为安全啊？</p>
 <p>填奖填nm英语竞赛，数学建模。。。</p>
 <p>真无语了。。。 真正搞安全的反而不受重视，我猜评审的也不懂吧。。。知道什么是CVE、CNVD、CNNVD吗？？？</p>
